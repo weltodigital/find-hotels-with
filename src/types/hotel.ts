@@ -1,14 +1,14 @@
 export interface Hotel {
   id: string
   name: string
-  description: string
-  location: string
+  description?: string
+  location?: string
   city: string
   country: string
-  price_range: string
-  rating: number
-  amenities: string[]
-  special_features: string[]
+  price_range?: string
+  rating?: number
+  amenities?: string[]
+  special_features?: string[]
   image_url?: string
   website_url?: string
   contact_email?: string

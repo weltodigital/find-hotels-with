@@ -26,25 +26,27 @@ export default function HotelCard({ hotel }: HotelCardProps) {
         </h3>
 
         <p className="text-gray-600 mb-2">
-          {hotel.location}, {hotel.city}, {hotel.country}
+          {hotel.location || 'Location TBD'}, {hotel.city}, {hotel.country}
         </p>
 
-        <div className="flex items-center mb-3">
-          <div className="flex text-yellow-400">
-            {[...Array(5)].map((_, i) => (
-              <span key={i} className={i < hotel.rating ? "★" : "☆"}>
-                ★
-              </span>
-            ))}
+        {hotel.rating && (
+          <div className="flex items-center mb-3">
+            <div className="flex text-yellow-400">
+              {[...Array(5)].map((_, i) => (
+                <span key={i} className={i < hotel.rating ? "★" : "☆"}>
+                  ★
+                </span>
+              ))}
+            </div>
+            <span className="ml-2 text-gray-600">({hotel.rating})</span>
           </div>
-          <span className="ml-2 text-gray-600">({hotel.rating})</span>
-        </div>
+        )}
 
         <p className="text-gray-700 mb-4 line-clamp-3">
           {hotel.description}
         </p>
 
-        {hotel.special_features.length > 0 && (
+        {hotel.special_features && hotel.special_features.length > 0 && (
           <div className="mb-4">
             <h4 className="text-sm font-medium text-gray-900 mb-2">Special Features:</h4>
             <div className="flex flex-wrap gap-2">
