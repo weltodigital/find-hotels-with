@@ -19,7 +19,7 @@ export default function HeroSection({ onSearch }: HeroSectionProps) {
     <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white">
       <div className="absolute inset-0 bg-black opacity-20"></div>
 
-      <div className="relative max-w-7xl mx-auto px-4 py-24 sm:py-32">
+      <div className="relative max-w-7xl mx-auto px-4 py-32 sm:py-40">
         <div className="text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             Find Hotels With

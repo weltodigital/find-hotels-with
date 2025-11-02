@@ -9,6 +9,8 @@ import HeroSection from '@/components/HeroSection'
 import FeaturesSection from '@/components/FeaturesSection'
 import FeaturedHotels from '@/components/FeaturedHotels'
 import SchemaMarkup from '@/components/SchemaMarkup'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   const [hotels, setHotels] = useState<Hotel[]>([])
@@ -129,12 +131,20 @@ export default function Home() {
       <SchemaMarkup type="website" />
       <SchemaMarkup type="hotels" hotels={hotels} />
 
-      <div className="min-h-screen bg-gray-50">
-        <HeroSection onSearch={handleSearch} />
+      <Header />
 
-        <FeaturesSection hotelCount={hotels.length} />
+      <div className="min-h-screen bg-gray-50 pt-16">
+        <section id="hero">
+          <HeroSection onSearch={handleSearch} />
+        </section>
 
-        <FeaturedHotels hotels={hotels} />
+        <section id="features">
+          <FeaturesSection hotelCount={hotels.length} />
+        </section>
+
+        <section id="featured-hotels">
+          <FeaturedHotels hotels={hotels} />
+        </section>
 
         {/* All Hotels Section */}
         <section id="all-hotels" className="py-20 bg-white">
@@ -251,6 +261,8 @@ export default function Home() {
           </div>
         </section>
       </div>
+
+      <Footer />
     </>
   )
 }
