@@ -6,14 +6,6 @@ import Link from 'next/link'
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-      setIsMenuOpen(false)
-    }
-  }
-
   return (
     <header className="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto px-4">
@@ -26,60 +18,27 @@ export default function Header() {
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-bold text-gray-900">Find Hotels With</span>
-                <span className="text-xs text-gray-600 -mt-1">Extraordinary Amenities</span>
+                <span className="text-xs text-gray-600 -mt-1">Extraordinary Facilities</span>
               </div>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <button
-              onClick={() => scrollToSection('hero')}
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-            >
-              Home
-            </button>
-            <button
-              onClick={() => scrollToSection('features')}
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-            >
-              Amenities
-            </button>
-            <button
-              onClick={() => scrollToSection('featured-hotels')}
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-            >
-              Featured
-            </button>
-            <button
-              onClick={() => scrollToSection('all-hotels')}
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-            >
-              All Hotels
-            </button>
             <Link
-              href="/about"
+              href="/tennis-courts"
               className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
             >
-              About
+              Tennis Courts
             </Link>
             <Link
-              href="/contact"
+              href="/padel-courts"
               className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
             >
-              Contact
+              Padel Courts
             </Link>
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:flex items-center space-x-4">
-            <button
-              onClick={() => scrollToSection('all-hotels')}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
-            >
-              Browse Hotels
-            </button>
-          </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
@@ -102,52 +61,20 @@ export default function Header() {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
-              <button
-                onClick={() => scrollToSection('hero')}
-                className="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600 font-medium"
-              >
-                Home
-              </button>
-              <button
-                onClick={() => scrollToSection('features')}
-                className="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600 font-medium"
-              >
-                Amenities
-              </button>
-              <button
-                onClick={() => scrollToSection('featured-hotels')}
-                className="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600 font-medium"
-              >
-                Featured
-              </button>
-              <button
-                onClick={() => scrollToSection('all-hotels')}
-                className="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600 font-medium"
-              >
-                All Hotels
-              </button>
               <Link
-                href="/about"
-                className="block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium"
+                href="/tennis-courts"
+                className="block px-3 py-2 text-gray-700 hover:text-green-600 font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
-                About
+                Tennis Courts
               </Link>
               <Link
-                href="/contact"
-                className="block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium"
+                href="/padel-courts"
+                className="block px-3 py-2 text-gray-700 hover:text-orange-600 font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Contact
+                Padel Courts
               </Link>
-              <div className="pt-2">
-                <button
-                  onClick={() => scrollToSection('all-hotels')}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
-                >
-                  Browse Hotels
-                </button>
-              </div>
             </div>
           </div>
         )}

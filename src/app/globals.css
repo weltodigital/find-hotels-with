@@ -1,4 +1,19 @@
 @import "tailwindcss";
+@import 'leaflet/dist/leaflet.css';
+
+/* Tennis ball marker styles */
+.tennis-ball-marker {
+  border: none !important;
+  background: transparent !important;
+}
+
+.tennis-ball-marker div {
+  transition: transform 0.2s ease;
+}
+
+.tennis-ball-marker:hover div {
+  transform: scale(1.1);
+}
 
 :root {
   --background: #ffffff;

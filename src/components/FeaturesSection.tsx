@@ -13,51 +13,15 @@ export default function FeaturesSection({ hotelCount }: FeaturesSectionProps) {
   const features: Feature[] = [
     {
       icon: "🎾",
-      title: "Padel Courts",
-      description: "Find hotels with professional padel courts for the ultimate racquet sports experience.",
-      count: Math.floor(hotelCount * 0.15) // Estimated
-    },
-    {
-      icon: "🛁",
-      title: "In-Room Hot Tubs",
-      description: "Luxury suites featuring private hot tubs and jacuzzis for ultimate relaxation.",
-      count: Math.floor(hotelCount * 0.25)
-    },
-    {
-      icon: "🏊",
-      title: "Private Pools",
-      description: "Exclusive accommodations with private swimming pools and water features.",
-      count: Math.floor(hotelCount * 0.20)
+      title: "Tennis Courts",
+      description: "Championship tennis facilities and professional courts for sports enthusiasts. Discover 76 luxury hotels across England, Scotland, and Wales featuring world-class tennis courts.",
+      count: 76
     },
     {
       icon: "🎾",
-      title: "Tennis Courts",
-      description: "Championship tennis facilities and professional courts for sports enthusiasts.",
-      count: Math.floor(hotelCount * 0.30)
-    },
-    {
-      icon: "💆",
-      title: "World-Class Spas",
-      description: "Rejuvenating spa treatments and wellness centers for mind and body restoration.",
-      count: Math.floor(hotelCount * 0.60)
-    },
-    {
-      icon: "🍷",
-      title: "Wine Cellars",
-      description: "Curated wine collections and exclusive cellar experiences for connoisseurs.",
-      count: Math.floor(hotelCount * 0.10)
-    },
-    {
-      icon: "⛳",
-      title: "Golf Courses",
-      description: "Championship golf courses and putting greens on hotel grounds.",
-      count: Math.floor(hotelCount * 0.25)
-    },
-    {
-      icon: "🏖️",
-      title: "Private Beaches",
-      description: "Exclusive beach access and pristine coastline for ultimate privacy.",
-      count: Math.floor(hotelCount * 0.12)
+      title: "Padel Courts",
+      description: "Experience the fastest-growing racquet sport at luxury hotels featuring professional padel courts. Find exceptional hotels with glass-enclosed padel facilities across the UK.",
+      count: 45
     }
   ]
 
@@ -66,7 +30,7 @@ export default function FeaturesSection({ hotelCount }: FeaturesSectionProps) {
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Discover Extraordinary Hotel Amenities
+            Discover Extraordinary Hotel Facilities
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             From professional sports facilities to luxury wellness experiences,
@@ -74,14 +38,18 @@ export default function FeaturesSection({ hotelCount }: FeaturesSectionProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {features.map((feature, index) => (
-            <div key={index} className="text-center group hover:transform hover:scale-105 transition-all duration-300">
-              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:shadow-lg">
+            <a
+              key={index}
+              href={feature.title === "Tennis Courts" ? "/tennis-courts" : "/padel-courts"}
+              className="text-center group hover:transform hover:scale-105 transition-all duration-300 cursor-pointer"
+            >
+              <div className={`w-20 h-20 bg-gradient-to-r ${feature.title === "Tennis Courts" ? "from-green-500 to-green-600" : "from-orange-500 to-orange-600"} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:shadow-lg`}>
                 <span className="text-3xl">{feature.icon}</span>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              <h3 className={`text-xl font-semibold text-gray-900 mb-3 group-hover:${feature.title === "Tennis Courts" ? "text-green-600" : "text-orange-600"} transition-colors`}>
                 {feature.title}
               </h3>
 
@@ -90,11 +58,11 @@ export default function FeaturesSection({ hotelCount }: FeaturesSectionProps) {
               </p>
 
               {feature.count && (
-                <div className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                  {feature.count}+ Hotels Available
+                <div className={`inline-flex items-center px-3 py-1 ${feature.title === "Tennis Courts" ? "bg-green-100 text-green-800 group-hover:bg-green-200" : "bg-orange-100 text-orange-800 group-hover:bg-orange-200"} rounded-full text-sm font-medium transition-colors`}>
+                  {feature.count} Hotels Available
                 </div>
               )}
-            </div>
+            </a>
           ))}
         </div>
 

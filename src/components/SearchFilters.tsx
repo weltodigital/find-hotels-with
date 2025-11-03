@@ -105,7 +105,7 @@ export default function SearchFilters({ onFilterChange }: SearchFiltersProps) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Amenities
+            Facilities
           </label>
           <div className="space-y-2">
             {AMENITIES.map((amenity) => (

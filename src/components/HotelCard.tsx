@@ -7,6 +7,36 @@ interface HotelCardProps {
 }
 
 export default function HotelCard({ hotel }: HotelCardProps) {
+  // Function to bold tennis court mentions in description
+  const formatDescription = (description: string) => {
+    if (!description) return description
+
+    // Replace tennis-related terms with bold versions (case insensitive)
+    let result = description
+
+    // First, handle multi-word phrases
+    result = result.replace(/(tennis\s+courts?)/gi, '<strong>$1</strong>')
+    result = result.replace(/(racquets?\s+courts?)/gi, '<strong>$1</strong>')
+    result = result.replace(/(rackets?\s+courts?)/gi, '<strong>$1</strong>')
+
+    // Then bold standalone "tennis" that isn't already in a <strong> tag
+    result = result.replace(/\b(tennis)\b(?![^<]*<\/strong>)/gi, (match, word, offset, string) => {
+      // Check if this "tennis" is already inside a <strong> tag
+      const beforeMatch = string.substring(0, offset)
+      const lastStrongOpen = beforeMatch.lastIndexOf('<strong>')
+      const lastStrongClose = beforeMatch.lastIndexOf('</strong>')
+
+      // If we're inside a <strong> tag, don't bold again
+      if (lastStrongOpen > lastStrongClose) {
+        return match
+      }
+
+      return `<strong>${word}</strong>`
+    })
+
+    return result
+  }
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       {hotel.image_url && (
@@ -26,25 +56,45 @@ export default function HotelCard({ hotel }: HotelCardProps) {
         </h3>
 
         <p className="text-gray-600 mb-2">
-          {hotel.location || 'Location TBD'}, {hotel.city}, {hotel.country}
+          {hotel.address || hotel.location || 'Address TBD'}, {hotel.city}, {hotel.country}
         </p>
 
-        {hotel.rating && (
+        {hotel.google_rating && (
           <div className="flex items-center mb-3">
-            <div className="flex text-yellow-400">
-              {[...Array(5)].map((_, i) => (
-                <span key={i} className={i < hotel.rating ? "★" : "☆"}>
-                  ★
-                </span>
-              ))}
+            <div className="flex items-center space-x-1">
+              <div className="flex text-blue-500">
+                {[...Array(5)].map((_, i) => {
+                  const rating = hotel.google_rating || 0;
+                  const starValue = i + 1;
+
+                  if (rating >= starValue) {
+                    // Full star
+                    return <span key={i}>★</span>;
+                  } else if (rating >= starValue - 0.5) {
+                    // Half star (use a different character or style)
+                    return <span key={i} className="relative">
+                      <span className="text-gray-300">★</span>
+                      <span className="absolute inset-0 overflow-hidden w-1/2">★</span>
+                    </span>;
+                  } else {
+                    // Empty star
+                    return <span key={i} className="text-gray-300">★</span>;
+                  }
+                })}
+              </div>
+              <span className="text-sm text-gray-600">
+                {hotel.google_rating}/5 ({hotel.google_reviews_count || 0} reviews)
+              </span>
             </div>
-            <span className="ml-2 text-gray-600">({hotel.rating})</span>
           </div>
         )}
 
-        <p className="text-gray-700 mb-4 line-clamp-3">
-          {hotel.description}
-        </p>
+        <p
+          className="text-gray-700 mb-4"
+          dangerouslySetInnerHTML={{
+            __html: formatDescription(hotel.description || '')
+          }}
+        />
 
         {hotel.special_features && hotel.special_features.length > 0 && (
           <div className="mb-4">
@@ -67,9 +117,9 @@ export default function HotelCard({ hotel }: HotelCardProps) {
             {hotel.price_range}
           </span>
 
-          {hotel.website_url && (
+          {(hotel.website || hotel.website_url || hotel.booking_url) && (
             <Link
-              href={hotel.website_url}
+              href={hotel.website || hotel.website_url || hotel.booking_url || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"

@@ -11,7 +11,7 @@ export default function SchemaMarkup({ type, hotels }: SchemaMarkupProps) {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Find Hotels With",
-      "description": "Discover unique hotels with extraordinary amenities like padel courts, hot tubs, private pools, tennis courts, spas, and more. Find your perfect luxury accommodation with special features.",
+      "description": "Discover unique hotels with extraordinary facilities like padel courts, hot tubs, private pools, tennis courts, spas, and more. Find your perfect luxury accommodation with special features.",
       "url": "https://findhotelswith.com",
       "potentialAction": {
         "@type": "SearchAction",
@@ -24,7 +24,7 @@ export default function SchemaMarkup({ type, hotels }: SchemaMarkupProps) {
       "publisher": {
         "@type": "Organization",
         "name": "Find Hotels With",
-        "description": "Curated collection of luxury hotels with unique amenities"
+        "description": "Curated collection of luxury hotels with unique facilities"
       }
     }
 
@@ -32,7 +32,7 @@ export default function SchemaMarkup({ type, hotels }: SchemaMarkupProps) {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Find Hotels With",
-      "description": "Premium hotel directory specializing in accommodations with unique amenities and luxury features",
+      "description": "Premium hotel directory specializing in accommodations with unique facilities and luxury features",
       "url": "https://findhotelswith.com",
       "logo": "https://findhotelswith.com/logo.png",
       "sameAs": [
@@ -82,8 +82,8 @@ export default function SchemaMarkup({ type, hotels }: SchemaMarkupProps) {
     const hotelListSchema = {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      "name": "Luxury Hotels with Special Amenities",
-      "description": "Curated collection of premium hotels featuring unique amenities",
+      "name": "Luxury Hotels with Special Facilities",
+      "description": "Curated collection of premium hotels featuring unique facilities",
       "numberOfItems": hotels.length,
       "itemListElement": hotels.slice(0, 10).map((hotel, index) => ({
         "@type": "ListItem",

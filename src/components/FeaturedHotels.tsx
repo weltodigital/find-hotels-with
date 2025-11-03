@@ -29,15 +29,20 @@ export default function FeaturedHotels({ hotels }: FeaturedHotelsProps) {
         </div>
 
         <div className="text-center">
-          <a
-            href="#all-hotels"
+          <button
+            onClick={() => {
+              const element = document.getElementById('features')
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
             className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-300"
           >
-            View All {hotels.length} Hotels
-            <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            Discover Hotel Amenities ↑
+            <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ transform: 'rotate(180deg)' }}>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
-          </a>
+          </button>
         </div>
       </div>
     </section>
