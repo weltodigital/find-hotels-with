@@ -252,9 +252,13 @@ export default function CountyPadelPage() {
   }))
 
   // Get county coordinates for map centering
-  const countyCoords = LOCATION_COORDINATES.counties?.[countyKey] || {
+  const rawCountyCoords = LOCATION_COORDINATES.counties[countyKey as keyof typeof LOCATION_COORDINATES.counties] || {
     center: [51.5, -1.0],
     zoom: 10
+  }
+  const countyCoords = {
+    center: [rawCountyCoords.center[0], rawCountyCoords.center[1]] as [number, number],
+    zoom: rawCountyCoords.zoom
   }
 
   // Get nearby counties for recommendations
