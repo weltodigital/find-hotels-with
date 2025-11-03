@@ -234,8 +234,8 @@ export default function CityPadelPage() {
   const sortedHotels = applySorting()
 
   // Get city coordinates for map centering
-  const cityCoords = LOCATION_COORDINATES.cities?.[cityKey] || {
-    center: [51.5, -1.0],
+  const cityCoords = (LOCATION_COORDINATES.cities as any)?.[cityKey] || {
+    center: [51.5, -1.0] as [number, number],
     zoom: 12
   }
 
