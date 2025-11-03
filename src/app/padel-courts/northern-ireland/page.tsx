@@ -82,13 +82,17 @@ export default function NorthernIrelandPadelPage() {
   const sortedHotels = applySorting()
 
   // Get Northern Ireland coordinates for map centering
-  const northernIrelandCoords = LOCATION_COORDINATES.countries?.['northern-ireland'] || {
+  const rawCoords = {
     center: [54.6, -6.2],
     zoom: 8
   }
+  const northernIrelandCoords = {
+    center: [rawCoords.center[0], rawCoords.center[1]] as [number, number],
+    zoom: rawCoords.zoom
+  }
 
   // Get unique counties from actual hotels
-  const uniqueCounties = [...new Set(sortedHotels.map(hotel => hotel.county))].sort()
+  const uniqueCounties = [...new Set(sortedHotels.map(hotel => hotel.county).filter(Boolean))].sort() as string[]
 
   // Create schema markup for structured data
   const schemaMarkup = {

@@ -82,10 +82,14 @@ export default function EnglandPadelPage() {
   const sortedHotels = applySorting()
 
   // Get England coordinates for map centering
-  const englandCoords = LOCATION_COORDINATES.countries.england
+  const rawEnglandCoords = LOCATION_COORDINATES.countries.england
+  const englandCoords = {
+    center: [rawEnglandCoords.center[0], rawEnglandCoords.center[1]] as [number, number],
+    zoom: rawEnglandCoords.zoom
+  }
 
   // Get unique counties from actual hotels
-  const uniqueCounties = [...new Set(sortedHotels.map(hotel => hotel.county))].sort()
+  const uniqueCounties = [...new Set(sortedHotels.map(hotel => hotel.county).filter(Boolean))].sort() as string[]
 
   // Create schema markup for structured data
   const schemaMarkup = {

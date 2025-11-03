@@ -96,7 +96,7 @@ export default function Home() {
     if (filters.special_features?.length > 0) {
       filtered = filtered.filter(hotel =>
         hotel.special_features && filters.special_features.some((feature: string) =>
-          hotel.special_features.includes(feature)
+          hotel.special_features!.includes(feature)
         )
       )
     }
@@ -104,7 +104,7 @@ export default function Home() {
     if (filters.amenities?.length > 0) {
       filtered = filtered.filter(hotel =>
         hotel.amenities && filters.amenities.some((amenity: string) =>
-          hotel.amenities.includes(amenity)
+          hotel.amenities!.includes(amenity)
         )
       )
     }

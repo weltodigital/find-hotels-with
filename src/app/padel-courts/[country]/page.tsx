@@ -4,20 +4,7 @@ import HotelsMap from '@/components/HotelsMap'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import { LOCATION_COORDINATES } from '@/lib/locationCoordinates'
 import { notFound } from 'next/navigation'
-
-interface Hotel {
-  id: number
-  name: string
-  city: string
-  county: string
-  country: string
-  latitude: number
-  longitude: number
-  description: string
-  price_range: string
-  website: string
-  slug: string
-}
+import { Hotel } from '@/types/hotel'
 
 interface CountyGroup {
   name: string
@@ -47,15 +34,16 @@ async function getHotelsInCountry(country: string) {
 
 function getCountiesWithHotels(hotels: Hotel[]) {
   const countyGroups = hotels.reduce((acc, hotel) => {
-    if (!acc[hotel.county]) {
-      acc[hotel.county] = {
-        name: hotel.county,
+    const county = hotel.county || 'Unknown'
+    if (!acc[county]) {
+      acc[county] = {
+        name: county,
         hotels: [],
         cities: new Set()
       }
     }
-    acc[hotel.county].hotels.push(hotel)
-    acc[hotel.county].cities.add(hotel.city)
+    acc[county].hotels.push(hotel)
+    acc[county].cities.add(hotel.city)
     return acc
   }, {} as Record<string, { name: string; hotels: Hotel[]; cities: Set<string> }>)
 
@@ -82,8 +70,9 @@ export default async function CountryPadelPage({
   const counties = getCountiesWithHotels(hotels)
   const countryName = hotels[0]?.country || country.charAt(0).toUpperCase() + country.slice(1)
 
-  const mapCenter = LOCATION_COORDINATES.countries[country as keyof typeof LOCATION_COORDINATES.countries]?.center || [54.5, -3.0]
-  const mapZoom = LOCATION_COORDINATES.countries[country as keyof typeof LOCATION_COORDINATES.countries]?.zoom || 6
+  const rawMapCoords = LOCATION_COORDINATES.countries[country as keyof typeof LOCATION_COORDINATES.countries] || { center: [54.5, -3.0], zoom: 6 }
+  const mapCenter: [number, number] = [rawMapCoords.center[0], rawMapCoords.center[1]]
+  const mapZoom = rawMapCoords.zoom
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -141,7 +130,10 @@ export default async function CountryPadelPage({
                     <HotelsMap
                       hotels={county.hotels}
                       className="h-64 rounded-lg"
-                      center={LOCATION_COORDINATES.counties[county.slug as keyof typeof LOCATION_COORDINATES.counties]?.center}
+                      center={(() => {
+                        const coords = LOCATION_COORDINATES.counties[county.slug as keyof typeof LOCATION_COORDINATES.counties]
+                        return coords ? [coords.center[0], coords.center[1]] as [number, number] : undefined
+                      })()}
                       zoom={LOCATION_COORDINATES.counties[county.slug as keyof typeof LOCATION_COORDINATES.counties]?.zoom}
                     />
                   </div>

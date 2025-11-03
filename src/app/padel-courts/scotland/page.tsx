@@ -82,10 +82,14 @@ export default function ScotlandPadelPage() {
   const sortedHotels = applySorting()
 
   // Get Scotland coordinates for map centering
-  const scotlandCoords = LOCATION_COORDINATES.countries.scotland
+  const rawScotlandCoords = LOCATION_COORDINATES.countries.scotland
+  const scotlandCoords = {
+    center: [rawScotlandCoords.center[0], rawScotlandCoords.center[1]] as [number, number],
+    zoom: rawScotlandCoords.zoom
+  }
 
   // Get unique counties from actual hotels
-  const uniqueCounties = [...new Set(sortedHotels.map(hotel => hotel.county))].sort()
+  const uniqueCounties = [...new Set(sortedHotels.map(hotel => hotel.county).filter(Boolean))].sort() as string[]
 
   // Create schema markup for structured data
   const schemaMarkup = {

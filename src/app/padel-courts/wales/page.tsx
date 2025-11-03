@@ -82,10 +82,14 @@ export default function WalesPadelPage() {
   const sortedHotels = applySorting()
 
   // Get Wales coordinates for map centering
-  const walesCoords = LOCATION_COORDINATES.countries.wales
+  const rawWalesCoords = LOCATION_COORDINATES.countries.wales
+  const walesCoords = {
+    center: [rawWalesCoords.center[0], rawWalesCoords.center[1]] as [number, number],
+    zoom: rawWalesCoords.zoom
+  }
 
   // Get unique counties from actual hotels
-  const uniqueCounties = [...new Set(sortedHotels.map(hotel => hotel.county))].sort()
+  const uniqueCounties = [...new Set(sortedHotels.map(hotel => hotel.county).filter(Boolean))].sort() as string[]
 
   // Create schema markup for structured data
   const schemaMarkup = {

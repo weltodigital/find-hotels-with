@@ -152,6 +152,12 @@ export function getLocationCoordinates(
   key: string
 ): { center: [number, number]; zoom: number } | null {
   const normalizedKey = key.toLowerCase().replace(/\s+/g, '-')
-  const coords = LOCATION_COORDINATES[level][normalizedKey as any]
-  return coords || null
+  const locationData = LOCATION_COORDINATES[level] as any
+  const coords = locationData[normalizedKey]
+  if (!coords) return null
+
+  return {
+    center: [coords.center[0], coords.center[1]] as [number, number],
+    zoom: coords.zoom
+  }
 }
